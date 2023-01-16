@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Automobiliai turimi</h1>
+<p>Kas vyksta siuo metu </p>
+{% for auto in automobiliai_num %}
+<li>{{auto.automobilio_modelis_id}} / {{auto.vin_kodas}} / {{auto.klientas}}</li>
+{% endfor %}
+{% endblock %}

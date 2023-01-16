@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Uzsakymas, UzsakymoEilute, Modelis
+from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
 
 def index(request):
     num_uzsakymas = Uzsakymas.objects.all().count()  # is models.py, Book klases
@@ -14,4 +14,16 @@ def index(request):
                'num_instances_g': num_instances_g}
     return render(request, 'index.html', context=context)
 
-# Create your views here.
+
+def modeliai(request):
+    modeliai_num = Modelis.objects.all()
+    context = {'modeliai_num': modeliai_num,
+               }
+    return render(request, 'modeliai.html', context=context)
+
+
+def automobiliai(request):
+    automobiliai_num = Automobilis.objects.all()
+    context = {'automobiliai_num': automobiliai_num,
+               }
+    return render(request, 'automobiliai.html', context=context)
