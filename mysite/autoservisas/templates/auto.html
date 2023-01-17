@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+  <h4>{{auto_automobile.automobilio_modelis_id}}</h4>
+  <hr/>
+  <h5>Automobilio informacija:  </h5>
+  <ul>
+    <li> Automobilio marke: {{auto_automobile.automobilio_modelis_id.marke}} </li>
+    <li> Automobilio modelis: {{auto_automobile.automobilio_modelis_id.modelis}} </li>
+    <li> Automobilio VIN kodas: {{auto_automobile.vin_kodas}} </li>
+    <li> Kliento vardas: {{auto_automobile.klientas}} </li>
+  </ul>
+
+</div>
+{% endblock %}

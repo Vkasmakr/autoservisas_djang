@@ -22,6 +22,9 @@ class UzsakymoEilute(models.Model):
     paslauga_id = models.ForeignKey('Paslauga', on_delete=models.SET_NULL, null=True)
     uzsakymas_id = models.ForeignKey('Uzsakymas', on_delete=models.SET_NULL, null=True)
 
+    def get_absolute_url(self):
+        return reverse('uzsakeil-detail', args=[str(self.id)])
+
     class Meta:
         verbose_name = "Uzsakymo eilute"
         verbose_name_plural = "Uzsakymo eilutes"
@@ -63,6 +66,9 @@ class Automobilis(models.Model):
     automobilio_modelis_id = models.ForeignKey('Modelis', on_delete=models.SET_NULL, null=True)
     vin_kodas = models.CharField('VIN kodas', max_length=17, help_text='Iveskite VIN numeri')
     klientas = models.CharField('Klientas', max_length=100, help_text='Iveskite klienta')
+
+    def get_absolute_url(self):
+        return reverse('auto-detail', args=[str(self.id)])
 
     class Meta:
         verbose_name = "Automobilis"

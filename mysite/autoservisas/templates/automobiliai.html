@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Automobiliai turimi</h1>
+<h1>Automobiliai turimi servise</h1>
 <p>Kas vyksta siuo metu </p>
 {% for auto in automobiliai_num %}
-<li>{{auto.automobilio_modelis_id}} / {{auto.vin_kodas}} / {{auto.klientas}}</li>
+<li><a href="{% url 'auto-detail' auto.id %}">{{auto.automobilio_modelis_id}} v/n:
+{{auto.valstybinis_numeris}}</a></li>
 {% endfor %}
 {% endblock %}
+
+<!-- {% url 'author-detail' author_obj.id %}-->

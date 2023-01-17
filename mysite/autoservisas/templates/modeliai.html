@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Automobiliai pas mumis</h1>
-<p>Musu aptarnaujamu automobiliu markiu sarasas: </p>
+<p>Musu aptarnaujamu automobiliu markiu ir modeliu sarasas: </p>
 {% for auto in modeliai_num %}
-<li>{{auto.marke}}</li>
+<li>{{auto.marke}} {{auto.modelis}}</li>
 {% endfor %}
 {% endblock %}
+

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div>
+  <h4>Uzsakymas: {{uzsakeil_single.paslauga_id.pavadinimas}}</h4>
+  <hr/>
+  <h5>Uzsakymo informacija:  </h5>
+  <ul>
+    <li> Automobilis: {{uzsakeil_single.uzsakymas_id.automobilis_id.automobilio_modelis_id}} </li>
+    <li> Klientas: {{uzsakeil_single.uzsakymas_id.automobilis_id.klientas}} </li>
+    <li> Paslaugos kiekis: {{uzsakeil_single.kiekis}} </li>
+    <li> Paslaugos kaina: {{uzsakeil_single.kaina}} EUR </li>
+  </ul>
+
+</div>
+{% endblock %}

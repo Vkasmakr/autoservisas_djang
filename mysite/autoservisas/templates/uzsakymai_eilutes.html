@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Uzsakymai vykdomi servise: </h1>
+</hr>
+{% for uzsak in uzsakymai_num %}
+<li><a href="{% url 'uzsakeil-detail' uzsak.id %}">{{uzsak.paslauga_id.pavadinimas}} /
+{{uzsak.uzsakymas_id.automobilis_id.automobilio_modelis_id}}</a></li>
+{% endfor %}
+{% endblock %}
+
+<!--{% url 'uzsakeil-detail' uzsak.id %}-->
