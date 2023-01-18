@@ -46,6 +46,10 @@ class OrdersListView(generic.ListView):
 #     return render(request, 'uzsakymai_eilutes.html', context=context)
 
 
-def orders_order(request, ue_id):
-    single_ue = get_object_or_404(UzsakymoEilute, pk=ue_id)  # pk - primary key
-    return render(request, 'uzsakeil_detail.html', {'uzsakeil_single': single_ue})
+class OrderDetailView(generic.DetailView):
+    model = UzsakymoEilute
+    template_name = "uzsakymas_detail_view.html"
+
+# def orders_order(request, ue_id):
+#     single_ue = get_object_or_404(UzsakymoEilute, pk=ue_id)  # pk - primary key
+#     return render(request, 'uzsakeil_detail.html', {'uzsakeil_single': single_ue})

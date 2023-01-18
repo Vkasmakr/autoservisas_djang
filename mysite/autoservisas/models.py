@@ -51,6 +51,9 @@ class Uzsakymas(models.Model):
         help_text='Status'
     )
 
+    def get_absolute_url(self):
+        return reverse('order-detail', args=[str(self.id)])
+
     class Meta:
         ordering = ['data']
         verbose_name = "Uzsakymas"

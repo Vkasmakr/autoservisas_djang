@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Uzsakymas numeris: {{uzsakymoeilute.id}}</h1>
+<p><b>Uzsakymo data: </b> {{uzsakymoeilute.uzsakymas_id.data}}</p>
+<hr>
+<p><b>Paslaugos pavadinimas: </b> {{uzsakymoeilute.paslauga_id.pavadinimas}}</p>
+<p><b>Kiekis: </b> {{uzsakymoeilute.kiekis}}</p>
+<p><b>Paslaugos vieneto kaina: </b> {{uzsakymoeilute.paslauga_id.kaina}} EUR</p>
+<hr>
+<p><b>Aptarnaujamas automobilis: </b><a href="{% url 'auto-detail' uzsakymoeilute.uzsakymas_id.automobilis_id.id %}">
+    {{uzsakymoeilute.uzsakymas_id.automobilis_id.automobilio_modelis_id}}</a></p>
+<p><b>Klientas: </b> {{uzsakymoeilute.uzsakymas_id.automobilis_id.klientas}}</p>
+<hr>
+<h4><b>Uzsakymo statusas: </b></h4>
+<p class="{% if uzsakymoeilute.uzsakymas_id.status == 'r' %}text-success
+{% elif uzsakymoeilute.uzsakymas_id.status == 'a' %}text-danger
+{% else %}text-warning
+{% endif %}">{{uzsakymoeilute.uzsakymas_id.get_status_display}}</p>
+
+
+{% endblock %}
