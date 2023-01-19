@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.views import generic
 from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
+from django.core.paginator import Paginator
 
 def index(request):
     num_uzsakymas = Uzsakymas.objects.all().count()  # is models.py, Book klases
@@ -24,8 +25,11 @@ def modeliai(request):
 
 
 def automobiliai(request):
-    automobiliai_num = Automobilis.objects.all()
-    context = {'automobiliai_num': automobiliai_num,
+    # automobiliai_num = Automobilis.objects.all()
+    paginator = Paginator(Automobilis.objects.all(), 3)
+    page_number = request.GET.get('page')
+    paged_automobiliai = paginator.get_page(page_number)
+    context = {'automobiliai_num': paged_automobiliai,
                }
     return render(request, 'automobiliai.html', context=context)
 
@@ -37,6 +41,7 @@ def automobile(request, auto_id):
 
 class OrdersListView(generic.ListView):
     model = UzsakymoEilute
+    paginate_by = 2
     template_name = 'uzsakymai_eilutes.html'
     context_object_name = 'uzsakymai_num'
 
