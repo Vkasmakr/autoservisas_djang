@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.views import generic
 from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
 from django.core.paginator import Paginator
+from django.db.models import Q
+
 
 def index(request):
     num_uzsakymas = Uzsakymas.objects.all().count()  # is models.py, Book klases
@@ -37,6 +39,17 @@ def automobiliai(request):
 def automobile(request, auto_id):
     single_auto = get_object_or_404(Automobilis, pk=auto_id)  # pk - primary key
     return render(request, 'auto.html', {'auto_automobile': single_auto})
+
+
+def search(request):
+    query = request.GET.get('query')
+    search_results = Automobilis.objects.filter(
+                        Q(valstybinis_numeris__icontains=query) | Q(klientas__icontains=query) |
+                        Q(vin_kodas__icontains=query) |
+                        Q(automobilio_modelis_id__marke__icontains=query) |
+                        Q(automobilio_modelis_id__modelis__icontains=query)
+    )
+    return render(request, 'search.html', {"autos_search": search_results, "query": query})
 
 
 class OrdersListView(generic.ListView):

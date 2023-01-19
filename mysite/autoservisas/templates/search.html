@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- paduodama pagal query rakta is views.py search funkcijos-->
+<h1>Paieskos pagal {{query}} rezultatai: </h1>
+<!-- paduodama pagal books rakta is views.py search funkcijos
+Nurodome kas vyks kai bus kazkas surasta-->
+{% if autos_search %}
+<ul>
+  {% for autos_search_obj in autos_search %}
+    <li>
+      <a href="{% url 'auto-detail' autos_search_obj.id %}"> {{autos_search_obj.automobilio_modelis_id}}</a>
+        {{autos_search_obj.klientas}} {{autos_search_obj.valstybinis_numeris}}
+      <hr>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>Nieko nerasta</p>
+{% endif %}
+
+{% endblock %}
