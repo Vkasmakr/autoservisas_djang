@@ -33,7 +33,7 @@ def automobiliai(request):
     paged_automobiliai = paginator.get_page(page_number)
     context = {'automobiliai_num': paged_automobiliai,
                }
-    return render(request, 'automobiliai.html', context=context)
+    return render(request, 'automobiliai_with_pics.html', context=context)
 
 
 def automobile(request, auto_id):

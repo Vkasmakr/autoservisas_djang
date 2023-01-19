@@ -70,6 +70,8 @@ class Automobilis(models.Model):
     vin_kodas = models.CharField('VIN kodas', max_length=17, help_text='Iveskite VIN numeri')
     klientas = models.CharField('Klientas', max_length=100, help_text='Iveskite klienta')
 
+    automobilis_pic = models.ImageField('Auto Nuotrauka', upload_to='car_pics', null=True, blank=True)
+
     def get_absolute_url(self):
         return reverse('auto-detail', args=[str(self.id)])
 

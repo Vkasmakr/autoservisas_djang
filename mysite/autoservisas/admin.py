@@ -5,7 +5,7 @@ from .models import Paslauga, UzsakymoEilute, Uzsakymas, Automobilis, Modelis
 class UzsakymoEiluteInline(admin.TabularInline):
     model = UzsakymoEilute
     extra = 0
-    readonly_fields = ('id',)
+    # readonly_fields = ('id',)
 
 
 class UzsakymasAdmin(admin.ModelAdmin):

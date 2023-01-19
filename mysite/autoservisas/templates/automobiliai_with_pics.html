@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Automobiliai turimi servise</h1>
+<p>Kas vyksta siuo metu </p>
+{% for auto in automobiliai_num %}
+<li><a href="{% url 'auto-detail' auto.id %}">{{auto.automobilio_modelis_id}} v/n:
+{{auto.valstybinis_numeris}}</a></li>
+{% endfor %}
+
+<div class="container puslapiai"><nav aria-label="...">
+        {% if automobiliai_num.has_other_pages %}
+            <ul class="pagination pagination-sm justify-content-end">
+                {% for i in automobiliai_num.paginator.page_range %}
+                    {% if automobiliai_num.number == i %}
+                        <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </nav></div>
+
+{% endblock %}
+
+<!-- {% url 'author-detail' author_obj.id %}-->
