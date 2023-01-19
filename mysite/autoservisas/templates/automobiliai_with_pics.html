@@ -1,11 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% load static%}
+
+
 <h1>Automobiliai turimi servise</h1>
 <p>Kas vyksta siuo metu </p>
+
+
+{%  if automobiliai_num %}
+<!--Sukuriame apipavidalinima paveiksliukams-->
+<div class="row">
+    {%  for auto_obj in automobiliai_num %}
+    <!--Aprasomas rodomo vaizdo stilius su paveiksliukais-->
+    <div class="col -md4 d-flex align-items-stretch">
+        <div class="card mb-4 shadow-sm", style="width: 14rem;">
+            <!--Jeigu paveiksliukas yra-->
+            {% if auto_obj.automobilis_pic %}
+                <img src="{{auto_obj.automobilis_pic.url}}" class="card-img-top">
+            <!--Kas rodoma, jeigu nera ikelto paveiksliuko-->
+            {% else %}
+                <img src="{% static 'imgs/no-image.png'%}" class="card-img-top">
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">{{auto_obj.valstybinis_numeris}}</h6>
+            <!--sukuriame linka knygoms-->
+            <p class="card-text"><a class="card-link" href="{{auto_obj.id}}">{{auto_obj.automobilio_modelis_id}}</a></p>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>Servisas tuscias siuo metu</p>
+{% endif %}
+
+<!--
 {% for auto in automobiliai_num %}
 <li><a href="{% url 'auto-detail' auto.id %}">{{auto.automobilio_modelis_id}} v/n:
 {{auto.valstybinis_numeris}}</a></li>
 {% endfor %}
+-->
 
 <div class="container puslapiai"><nav aria-label="...">
         {% if automobiliai_num.has_other_pages %}
