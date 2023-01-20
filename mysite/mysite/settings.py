@@ -128,3 +128,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Medijos funkcionalumas
 MEDIA_ROOT = os.path.join(BASE_DIR, "library/media")
 MEDIA_URL = '/media/'
+
+# Login redirect
+LOGIN_REDIRECT_URL = '/'
+
+# Email configurations
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # rodys konsoleje
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"  # sius email
+EMAIL_HOST = 'mail.pythonkursas2.smshostingas.lt'
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'django@pythonkursas2.smshostingas.lt'
+EMAIL_HOST_PASSWORD = '2023PTU6'
+

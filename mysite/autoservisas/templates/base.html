@@ -1,122 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     {% block title %}
     <title>Autoservisas arciau Taves!</title>
     {% endblock %}
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-      crossorigin="anonymous"
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous"
     />
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
     <!-- Add additional CSS in static file -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-  </head>
-  <body>
-    <!-- Navigation -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+</head>
+<body>
+<!-- Navigation -->
 
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow"
-    >
-      <div class="container">
+<nav
+        class="navbar navbar-expand-lg navbar-light bg-light static-top mb-5 shadow"
+>
+    <div class="container">
         <a class="navbar-brand" href="#">
-          <svg
-            class="bi bi-book-half"
-            width="2em"
-            height="2em"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.
+            <svg
+                    class="bi bi-book-half"
+                    width="2em"
+                    height="2em"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                        fill-rule="evenodd"
+                        d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 018.5 2.5v11a.5.5 0 01-.854.354c-.843-.844-2.115-1.
               059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 010 13.5v-11a.5.5 0 01.276-.447L.5 2.5l-.224-.447.002-.
               001.004-.002.013-.006a5.017 5.017 0 01.22-.103 12.958 12.958 0 012.7-.869zM1 2.82v9.908c.846-.343 1.944-.
               672 3.074-.788 1.143-.118 2.387-.023 3.426.56V2.718c-1.063-.929-2.631-.956-4.09-.664A11.958 11.958 0 001
               2.82z"
-              clip-rule="evenodd"
-            />
-            <path
-              fill-rule="evenodd"
-              d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-
+                        clip-rule="evenodd"
+                />
+                <path
+                        fill-rule="evenodd"
+                        d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 007.5 2.5v11a.5.5 0 00.854.354c.843-.844 2.115-
               1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0016 13.5v-11a.5.5 0 00-.276-.447L15.5 2.5l.224-.447-
               .002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 00-.799-.34 12.96 12.96 0 00-2.073-.609z"
-              clip-rule="evenodd"
-            />
-          </svg>
-          Tavo autoservisas!</a
+                        clip-rule="evenodd"
+                />
+            </svg>
+            Tavo autoservisas!</a
         >
         <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarResponsive"
-          aria-controls="navbarResponsive"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'index' %}">Pradžia</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'uzsakymaseil' %}">Visi uzsakymai</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'modeliai' %}">Visos automobiliu markes</a>
-            </li>
-              <li class="nav-item">
-              <a class="nav-link" href="{% url 'automobiliai' %}">Automobiliai siuo metu</a>
-            </li>
-          </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Pradžia</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'uzsakymaseil' %}">Visi uzsakymai</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'modeliai' %}">Visos automobiliu markes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'automobiliai' %}">Automobiliai siuo metu</a>
+                </li>
 
-          <form
-            class="form-inline my-2 my-lg-0"
-            action="{% url 'search' %}"
-            method="get"
-          >
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="Paieška"
-              aria-label="Search"
-              name="query"
-            />
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">
-              Ieškoti
-            </button>
-          </form>
+                {% if user.is_authenticated%}
+                <li class="nav-item"><a class="nav-link" href="#">
+
+                    <!--Androido icona-->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-android2" viewBox="0 0 16 16">
+                        <path d="m10.213 1.471.691-1.26c.046-.083.03-.147-.048-.192-.085-.038-.15-.019-.195.058l-.7 1.27A4.832 4.832 0 0 0 8.005.941c-.688 0-1.34.135-1.956.404l-.7-1.27C5.303 0 5.239-.018 5.154.02c-.078.046-.094.11-.049.193l.691 1.259a4.25 4.25 0 0 0-1.673 1.476A3.697 3.697 0 0 0 3.5 5.02h9c0-.75-.208-1.44-.623-2.072a4.266 4.266 0 0 0-1.664-1.476ZM6.22 3.303a.367.367 0 0 1-.267.11.35.35 0 0 1-.263-.11.366.366 0 0 1-.107-.264.37.37 0 0 1 .107-.265.351.351 0 0 1 .263-.11c.103 0 .193.037.267.11a.36.36 0 0 1 .112.265.36.36 0 0 1-.112.264Zm4.101 0a.351.351 0 0 1-.262.11.366.366 0 0 1-.268-.11.358.358 0 0 1-.112-.264c0-.103.037-.191.112-.265a.367.367 0 0 1 .268-.11c.104 0 .19.037.262.11a.367.367 0 0 1 .107.265c0 .102-.035.19-.107.264ZM3.5 11.77c0 .294.104.544.311.75.208.204.46.307.76.307h.758l.01 2.182c0 .276.097.51.292.703a.961.961 0 0 0 .7.288.973.973 0 0 0 .71-.288.95.95 0 0 0 .292-.703v-2.182h1.343v2.182c0 .276.097.51.292.703a.972.972 0 0 0 .71.288.973.973 0 0 0 .71-.288.95.95 0 0 0 .292-.703v-2.182h.76c.291 0 .54-.103.749-.308.207-.205.311-.455.311-.75V5.365h-9v6.404Zm10.495-6.587a.983.983 0 0 0-.702.278.91.91 0 0 0-.293.685v4.063c0 .271.098.501.293.69a.97.97 0 0 0 .702.284c.28 0 .517-.095.712-.284a.924.924 0 0 0 .293-.69V6.146a.91.91 0 0 0-.293-.685.995.995 0 0 0-.712-.278Zm-12.702.283a.985.985 0 0 1 .712-.283c.273 0 .507.094.702.283a.913.913 0 0 1 .293.68v4.063a.932.932 0 0 1-.288.69.97.97 0 0 1-.707.284.986.986 0 0 1-.712-.284.924.924 0 0 1-.293-.69V6.146c0-.264.098-.491.293-.68Z"/>
+                    </svg>
+
+                    {{ user.get_username }}</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Mano uzsakymai (dar nesutvarkytas)</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}?next=/autoservisas">Atsijungti</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login'%}?next={{request.path}}">Prisijungti</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Registruotis (dar nesutvarkytas)</a></li>
+                {% endif %}
+
+            </ul>
+
+            <form
+                    class="form-inline my-2 my-lg-0"
+                    action="{% url 'search' %}"
+                    method="get"
+            >
+                <input
+                        class="form-control mr-sm-2"
+                        type="search"
+                        placeholder="Paieška"
+                        aria-label="Search"
+                        name="query"
+                />
+                <button class="btn btn-outline-info my-2 my-sm-0" type="submit">
+                    Ieškoti
+                </button>
+            </form>
         </div>
-      </div>
-    </nav>
-    <div class="container">{% block content %}{% endblock %}</div>
+    </div>
+</nav>
+<div class="container">{% block content %}{% endblock %}</div>
 
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+<script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"
+></script>
+</body>
 </html>
