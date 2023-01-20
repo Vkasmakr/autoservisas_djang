@@ -12,10 +12,13 @@ def index(request):
     num_modelis = Modelis.objects.all().count()
     # Filtruojame is kintamojo status 'g' reiksme
     num_instances_g = Uzsakymas.objects.filter(status__exact='g').count()
+    times_visited = request.session.get('num_of_visits', 1)
+    request.session['num_of_visits'] = times_visited + 1
     context = {'num_uzsakymas': num_uzsakymas,
                'num_uzsakymo_eilute': num_uzsakymo_eilute,
                'num_modelis': num_modelis,
-               'num_instances_g': num_instances_g}
+               'num_instances_g': num_instances_g,
+               'num_of_visits': times_visited}
     return render(request, 'index.html', context=context)
 
 
