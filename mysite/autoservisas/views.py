@@ -57,7 +57,7 @@ def search(request):
 
 class OrdersListView(generic.ListView):
     model = UzsakymoEilute
-    paginate_by = 2
+    paginate_by = 5
     template_name = 'uzsakymai_eilutes.html'
     context_object_name = 'uzsakymai_num'
 
