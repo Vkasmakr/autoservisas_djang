@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from datetime import date
 
 # Create your models here.
 
@@ -21,6 +23,15 @@ class UzsakymoEilute(models.Model):
     kaina = models.FloatField('Kaina', max_length=10, help_text='Iveskite paslaugos kaina', default=0)
     paslauga_id = models.ForeignKey('Paslauga', on_delete=models.SET_NULL, null=True)
     uzsakymas_id = models.ForeignKey('Uzsakymas', on_delete=models.SET_NULL, null=True)
+    useris = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    grazinti_iki = models.DateField('Pabaigti darbus iki: ', null=True, blank=True)
+
+    @property
+    def is_overdue(self):
+        if self.grazinti_iki and date.today() > self.grazinti_iki:
+            return True
+        else:
+            return False
 
     def get_absolute_url(self):
         return reverse('uzsakeil-detail', args=[str(self.id)])

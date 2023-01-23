@@ -9,5 +9,6 @@ urlpatterns = [
     path('uzsakymaseil/', views.OrdersListView.as_view(), name='uzsakymaseil'),
     path('uzsakymaseil/<int:pk>', views.OrderDetailView.as_view(), name='uzsakeil-detail'),
     path('search/', views.search, name='search'),
-    path("accounts/", include("django.contrib.auth.urls"))
+    path("accounts/", include("django.contrib.auth.urls")),
+    path('myorders/', views.OrderDetailByUserListView.as_view(), name='my-orders')
 ]

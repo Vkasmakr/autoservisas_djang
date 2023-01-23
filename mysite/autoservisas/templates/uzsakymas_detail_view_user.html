@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Mano uzsakymai</h1>
+{% if uzsakymoeilute_list %}
+
+{%else%}
+<p>Siuo metu neturite jokiu uzsakymu</p>
+{%endif%}
+<ul>
+    {% for uzsakymoeilute_obj in uzsakymoeilute_list %}
+    {%if uzsakymoeilute_obj.uzsakymas_id.status != 'r'%}
+    <li class="{% if uzsakymoeilute_obj.is_overdue %}text-danger{%endif%}">
+        <a href="{% url 'uzsakeil-detail' uzsakymoeilute_obj.id %}">{{uzsakymoeilute_obj.paslauga_id.pavadinimas}}</a>
+        <p>Planuojama pabaigti iki: {{uzsakymoeilute_obj.grazinti_iki}}</p>
+    </li>
+    {%endif%}
+    {{%endfor%}
+</ul>
+{% endblock %}

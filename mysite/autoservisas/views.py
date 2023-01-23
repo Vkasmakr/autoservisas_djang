@@ -4,6 +4,7 @@ from django.views import generic
 from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def index(request):
@@ -74,3 +75,15 @@ class OrderDetailView(generic.DetailView):
 # def orders_order(request, ue_id):
 #     single_ue = get_object_or_404(UzsakymoEilute, pk=ue_id)  # pk - primary key
 #     return render(request, 'uzsakeil_detail.html', {'uzsakeil_single': single_ue})
+
+
+class OrderDetailByUserListView(LoginRequiredMixin, generic.ListView):  # Paveldime is dvieju klasiu!
+    model = UzsakymoEilute  # gausime context={'bookinstance_list': BookInstance}
+    template_name = 'uzsakymas_detail_view_user.html'
+
+    # perrasome metoda get_queryset is klases generic.ListView. Child klases metodas veiks kreipiantis per Child klase
+    # filter(reader=self.request.user) - isrenka useri
+    # filter(status_exact='p') - isrenka BookInstance statusus su 'p' raktu
+    # order_by('due_back') - surusiuoja pagal data
+    def get_queryset(self):
+        return UzsakymoEilute.objects.filter(useris=self.request.user).order_by('grazinti_iki')
