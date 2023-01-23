@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+from tinymce.models import HTMLField
 
 # Create your models here.
 
@@ -82,6 +83,8 @@ class Automobilis(models.Model):
     klientas = models.CharField('Klientas', max_length=100, help_text='Iveskite klienta')
 
     automobilis_pic = models.ImageField('Auto Nuotrauka', upload_to='car_pics', null=True, blank=True)
+
+    aprasymas = HTMLField()
 
     def get_absolute_url(self):
         return reverse('auto-detail', args=[str(self.id)])

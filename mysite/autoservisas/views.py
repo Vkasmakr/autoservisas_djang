@@ -32,7 +32,7 @@ def modeliai(request):
 
 def automobiliai(request):
     # automobiliai_num = Automobilis.objects.all()
-    paginator = Paginator(Automobilis.objects.all(), 3)
+    paginator = Paginator(Automobilis.objects.all(), 2)
     page_number = request.GET.get('page')
     paged_automobiliai = paginator.get_page(page_number)
     context = {'automobiliai_num': paged_automobiliai,
