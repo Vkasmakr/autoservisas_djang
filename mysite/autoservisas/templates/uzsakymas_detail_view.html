@@ -18,5 +18,16 @@
 {% else %}text-warning
 {% endif %}">{{uzsakymoeilute.uzsakymas_id.get_status_display}}</p>
 
+<hr>
+<h4>Atsiliepimai</h4>
+{% if uzsakymoeilute.uzsakymasreview_set.all %}
+{% for order_review in uzsakymoeilute.uzsakymasreview_set.all %}
+<hr>
+<p>{{order_review.reviewer}}, <em>{{order_review.date_created}}</em></p>
+<p>{{order_review.content}}</p>
+{% endfor %}
+{% else %}
+<p>Atsiliepimu nera</p>
+{% endif %}
 
 {% endblock %}
