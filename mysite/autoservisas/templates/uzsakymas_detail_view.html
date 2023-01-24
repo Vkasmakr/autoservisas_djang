@@ -19,6 +19,19 @@
 {% endif %}">{{uzsakymoeilute.uzsakymas_id.get_status_display}}</p>
 
 <hr>
+{% if user.is_authenticated %}
+<div class="fieldWrapper">
+    <h4>Palikite atsiliepima:</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.content }}
+        <br>
+        <input type="submit", value="Palikti atsiliepima">
+    </form>
+</div>
+{% endif %}
+
+<hr>
 <h4>Atsiliepimai</h4>
 {% if uzsakymoeilute.uzsakymasreview_set.all %}
 {% for order_review in uzsakymoeilute.uzsakymasreview_set.all %}

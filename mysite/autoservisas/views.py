@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponse
 from django.views import generic
 from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
+from django.views.generic.edit import FormMixin
+from .forms import UzsakymasReviewForm
 
 
 def index(request):
@@ -71,9 +73,32 @@ class OrdersListView(generic.ListView):
 #     return render(request, 'uzsakymai_eilutes.html', context=context)
 
 
-class OrderDetailView(generic.DetailView):
+class OrderDetailView(FormMixin, generic.DetailView):
     model = UzsakymoEilute
     template_name = "uzsakymas_detail_view.html"
+    form_class = UzsakymasReviewForm
+
+    # nustatome settings
+    class Meta:
+        ordering = ['paslauga_id']
+
+    # Nukreipimas po sekmingo komentaro parasymo atgal i knygos langa
+    def get_success_url(self):
+        return reverse('uzsakeil-detail', kwargs={'pk': self.object.id})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        form.instance.order_line = self.object
+        form.instance.reviewer = self.request.user
+        form.save()
+        return super(OrderDetailView, self).form_valid(form)
 
 # def orders_order(request, ue_id):
 #     single_ue = get_object_or_404(UzsakymoEilute, pk=ue_id)  # pk - primary key
