@@ -7,6 +7,7 @@
 <p><b>Paslaugos pavadinimas: </b> {{uzsakymoeilute.paslauga_id.pavadinimas}}</p>
 <p><b>Kiekis: </b> {{uzsakymoeilute.kiekis}}</p>
 <p><b>Paslaugos vieneto kaina: </b> {{uzsakymoeilute.paslauga_id.kaina}} EUR</p>
+<p><b>Uzsakymo bendra suma: </b> {{ uzsakymoeilute.suma }} EUR</p>
 <hr>
 <p><b>Aptarnaujamas automobilis: </b><a href="{% url 'auto-detail' uzsakymoeilute.uzsakymas_id.automobilis_id.id %}">
     {{uzsakymoeilute.uzsakymas_id.automobilis_id.automobilio_modelis_id}}</a></p>

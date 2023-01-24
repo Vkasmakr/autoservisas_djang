@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 from tinymce.models import HTMLField
+from django.db.models import F, ExpressionWrapper
 
 # Create your models here.
 
@@ -33,6 +34,12 @@ class UzsakymoEilute(models.Model):
             return True
         else:
             return False
+
+    @property
+    def suma(self):
+        # return F('kiekis') * F('kaina')
+        return int(self.kiekis) * self.paslauga_id.kaina
+
 
     def get_absolute_url(self):
         return reverse('uzsakeil-detail', args=[str(self.id)])
@@ -114,3 +121,4 @@ class UzsakymasReview(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     content = models.TextField('Atsiliepimas', max_length=2000)
+
