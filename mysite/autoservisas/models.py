@@ -107,3 +107,10 @@ class Modelis(models.Model):
 
     def __str__(self):
         return f'{self.marke}, {self.modelis}'
+
+
+class UzsakymasReview(models.Model):
+    order_line = models.ForeignKey('UzsakymoEilute', on_delete=models.SET_NULL, null=True, blank=True)
+    reviewer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    content = models.TextField('Atsiliepimas', max_length=2000)

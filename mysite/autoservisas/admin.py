@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Paslauga, UzsakymoEilute, Uzsakymas, Automobilis, Modelis
+from .models import Paslauga, UzsakymoEilute, Uzsakymas, Automobilis, Modelis, UzsakymasReview
 
 
 class UzsakymoEiluteInline(admin.TabularInline):
@@ -33,9 +33,14 @@ class UzsakymoEiluteAdmin(admin.ModelAdmin):
     list_display = ('kiekis', 'kaina', 'paslauga_id', 'uzsakymas_id')
 
 
+class UzsakymasReviewAdmin(admin.ModelAdmin):
+    list_display = ('order_line', 'date_created', 'reviewer', 'content')
+
+
 # Register your models here.
 admin.site.register(Paslauga, PaslaugaAdmin)
 admin.site.register(Uzsakymas, UzsakymasAdmin)
 admin.site.register(UzsakymoEilute, UzsakymoEiluteAdmin)
 admin.site.register(Automobilis, AutomobilisAdmin)
 admin.site.register(Modelis, ModelisAdmin)
+admin.site.register(UzsakymasReview, UzsakymasReviewAdmin)
