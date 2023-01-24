@@ -1,10 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views import generic
 from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import User
+from django.views.decorators.csrf import csrf_protect
+from django.contrib import messages
 
 
 def index(request):
@@ -87,3 +90,29 @@ class OrderDetailByUserListView(LoginRequiredMixin, generic.ListView):  # Paveld
     # order_by('due_back') - surusiuoja pagal data
     def get_queryset(self):
         return UzsakymoEilute.objects.filter(useris=self.request.user).order_by('grazinti_iki')
+
+
+@csrf_protect
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password']
+        password2 = request.POST['password2']
+        if password1 == password2:
+            if User.objects.filter(username=username).exists():
+                messages.error(request, f'Vartotojo vardas {username} yra uzimtas')
+                return redirect('registration')
+            else:
+                if User.objects.filter(email=email).exists():  # tikriname ar yra jau toks email
+                    messages.error(request, f'Emailas {email} yra uzimtas kito vartotojo')
+                    return redirect('registration')
+                else:
+                    User.objects.create_user(username=username, email=email, password=password1)
+                    messages.info(request, f'Vartotojas {username} sekmingai uzregistruotas')
+                    return redirect('login')
+        else:
+            messages.error(request, 'Slaptazodzia nesutampa')
+            return redirect('registration')
+
+    return render(request, 'register.html')
