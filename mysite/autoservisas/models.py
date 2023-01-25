@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
 from tinymce.models import HTMLField
-from django.db.models import F, ExpressionWrapper
+from PIL import Image
 
 # Create your models here.
 
@@ -122,3 +122,23 @@ class UzsakymasReview(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     content = models.TextField('Atsiliepimas', max_length=2000)
 
+
+class Profilis(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nuotrauka = models.ImageField(default='default.png', upload_to='profile_pics')
+
+    def __str__(self):
+        return f'{self.user.username} profilis'
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.nuotrauka.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.nuotrauka.path)
+
+
+# profilius useriams reiktu rankiniu budu priskirti, taciau galima automatizuoti: python manage.py shell ->
+# -> from django.contrib.auth.models import User -> from library.models import Profilis ->
+# -> for user_obj in User.objects.all(): -> (indent)profile_obj = Profilis(user=user_obj) -> profile_obj.save()

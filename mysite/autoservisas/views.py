@@ -9,7 +9,8 @@ from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
-from .forms import UzsakymasReviewForm
+from .forms import UzsakymasReviewForm, UserUpdateForm, ProfilisUpdateForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -129,7 +130,7 @@ def register(request):
                 messages.error(request, f'Vartotojo vardas {username} yra uzimtas')
                 return redirect('registration')
             else:
-                if User.objects.filter(email=email).exists():  # tikriname ar yra jau toks email
+                if User.objects.filter(email=email).exists():
                     messages.error(request, f'Emailas {email} yra uzimtas kito vartotojo')
                     return redirect('registration')
                 else:
@@ -141,3 +142,25 @@ def register(request):
             return redirect('registration')
 
     return render(request, 'register.html')
+
+
+@login_required
+def profilis(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfilisUpdateForm(request.POST, request.FILES, instance=request.user.profilis)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.info(request, "Profilis sekmingai atnaujintas")
+            return redirect('profilis')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfilisUpdateForm(instance=request.user.profilis)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'profilis.html', context=context)

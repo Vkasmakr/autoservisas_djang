@@ -33,8 +33,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'autoservisas',
     'tinymce',
+    'autoservisas.apps.AutoservisasConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,7 +128,7 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Medijos funkcionalumas
-MEDIA_ROOT = os.path.join(BASE_DIR, "library/media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "autoservisas/media")
 MEDIA_URL = '/media/'
 
 # Login redirect
@@ -171,4 +172,5 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
 }
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
