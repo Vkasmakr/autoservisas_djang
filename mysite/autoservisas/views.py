@@ -4,12 +4,12 @@ from django.views import generic
 from .models import Uzsakymas, UzsakymoEilute, Modelis, Automobilis
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
-from django.views.generic.edit import FormMixin
-from .forms import UzsakymasReviewForm, UserUpdateForm, ProfilisUpdateForm
+from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
+from .forms import UzsakymasReviewForm, UserUpdateForm, ProfilisUpdateForm, UserOrderCreateForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -164,3 +164,50 @@ def profilis(request):
     }
 
     return render(request, 'profilis.html', context=context)
+
+
+class UzsakymoEiluteByUserCreateView(LoginRequiredMixin, CreateView):
+    model = UzsakymoEilute
+    # fields = '__all__'  # rodo visus modelio laukus, bet jeigu nori isskirti ka rodysime, turime daryti kaip zemiau
+    # fields = ('book', 'due_back', 'status')  - Prijungsime laukus is forms.py todel sitie nereikalingi
+    success_url = '/autoservisas/myorders/'  # kur nukreipsime po sekmingo posto
+    template_name = 'user_order_form.html'
+    form_class = UserOrderCreateForm
+
+    def form_valid(self, form):
+        form.instance.useris = self.request.user
+        return super().form_valid(form)
+
+
+class UzsakymoEiluteByUserDetailView(LoginRequiredMixin, OrderDetailView):
+    model = UzsakymoEilute
+    template_name = 'user_order.html'
+
+
+# LogisRequiredMixin - kas tik isilogines galetu daryt dalykus
+# UserPassesTestMixin - kad isilogines useris negaletu keisti dalyku kitu useriu vardu
+# Update View - kad useris galetu keisti dalykus
+class UzsakymoEiluteByUserUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = UzsakymoEilute
+    fields = ('kiekis', 'paslauga_id')
+    success_url = '/autoservisas/myorders/'  # kur nukreipsime po sekmingo keitimo
+    template_name = 'user_order_form.html'
+
+    def form_valid(self, form):
+        form.instance.useris = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        uzsakymasinstance = self.get_object()
+        return self.request.user == uzsakymasinstance.useris  # testas ar prisijunges useris atitinka to instance, kuri
+        # norime keisti "savininka". Cia, kad kitas useris nekeistu kito userio pakeitimu.
+
+
+class UzsakymoEiluteByUserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = UzsakymoEilute
+    success_url = '/autoservisas/myorders/'
+    template_name = 'user_order_delete.html'
+
+    def test_func(self):
+        uzsakymasinstance = self.get_object()
+        return self.request.user == uzsakymasinstance.useris

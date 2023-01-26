@@ -92,6 +92,7 @@
 
                     {{ user.get_username }}</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'my-orders' %}">Mano uzsakymai</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'my-order-new' %}">Nauja Uzsak.eilute</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout'%}">Atsijungti</a></li>
                 {% else %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'login'%}">Prisijungti</a>

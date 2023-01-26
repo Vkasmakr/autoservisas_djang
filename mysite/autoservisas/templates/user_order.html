@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h1>Mano pateikti uzsakymai</h1>
+<h4>{{user}}</h4>
+{% if uzsakymoeilute.uzsakymas_id.automobilis_id.automobilis_pic %}
+<img src="{{uzsakymoeilute.uzsakymas_id.automobilis_id.automobilis_pic.url}}"/>
+{% else %}
+<img src="{% static 'imgs/no-image.png' %}"/>
+{% endif %}
+<hr>
+<h5>{{bookinstance.paslauga_id.pavadinimas}} - {{uzsakymoeilute.uzsakymas_id.automobilis_id.valstybinis_numeris}} </h5>
+<p>Uzsakymo numeris: {{uzsakymoeilute.uzsakymas_id.id}}</p>
+<p class="{% if uzsakymoeilute.is_overdue %}text-danger{% endif %}">Darbus baigti planuojama iki: {{uzsakymoeilute.grazinti_iki}}</p>
+<div>
+    <a href="{% url 'my-order-update' uzsakymoeilute.pk %}" class="btn btn-secondary btn-sm">Redaguoti</a>
+    <a href="{% url 'my-order-delete' uzsakymoeilute.pk %}" class="btn btn-secondary btn-sm">Istrinti</a>
+</div>
+{% endblock %}

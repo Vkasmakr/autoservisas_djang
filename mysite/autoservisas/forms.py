@@ -1,4 +1,4 @@
-from .models import UzsakymasReview, Profilis
+from .models import UzsakymasReview, Profilis, UzsakymoEilute
 from django import forms
 from django.contrib.auth.models import User
 
@@ -23,3 +23,14 @@ class ProfilisUpdateForm(forms.ModelForm):
     class Meta:
         model = Profilis
         fields = ['nuotrauka']
+
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
+class UserOrderCreateForm(forms.ModelForm):
+    class Meta:
+        model = UzsakymoEilute
+        fields = ('kiekis', 'kaina', 'paslauga_id', 'grazinti_iki', 'uzsakymas_id')
+        widgets = {'kaina': forms.HiddenInput, 'grazinti_iki': DateInput}
